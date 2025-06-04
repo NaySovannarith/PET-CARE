@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care1/onboarding_screen2.dart';
 import '../widgets/dot_indicator.dart';
-import '../narbar.dart'; // Import your navbar file
+// Import your navbar file
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -13,10 +13,7 @@ class OnboardingScreen extends StatelessWidget {
         children: [
           // Background
           Positioned.fill(
-            child: Image.asset(
-              'assets/puppy1.jpg',
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset('assets/puppy11.jpg', fit: BoxFit.cover),
           ),
           // Bottom content
           Align(
@@ -39,27 +36,19 @@ class OnboardingScreen extends StatelessWidget {
                       DotIndicator(),
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  Image.asset('assets/images/coco_logo.png', height: 60),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 14),
                   const Text(
                     'Hey! Welcome',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   const Text(
                     'while you sit and stay – we’ll go\nout and play',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                    style: TextStyle(fontSize: 18, color: Colors.black54),
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  const SizedBox(height: 12),
+
                   const Spacer(),
                   SizedBox(
                     width: double.infinity,

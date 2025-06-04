@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'narbar.dart';
 import 'onboarding_screen1.dart';
 
 void main() {

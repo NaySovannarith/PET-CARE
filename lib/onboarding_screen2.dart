@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/dot_indicator.dart';
-import '../narbar.dart';// Import your navbar file
+// Import your navbar file
 import 'package:pet_care1/onboarding_screen3.dart';
 
 class OnboardingScreen1 extends StatelessWidget {
@@ -13,10 +13,7 @@ class OnboardingScreen1 extends StatelessWidget {
         children: [
           // Background
           Positioned.fill(
-            child: Image.asset(
-              'assets/puppy1.jpg',
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset('assets/cat.jpg', fit: BoxFit.cover),
           ),
           // Bottom content
           Align(
@@ -34,32 +31,29 @@ class OnboardingScreen1 extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
-                      DotIndicator(isActive: true),
                       DotIndicator(),
+                      DotIndicator(isActive: true),
                       DotIndicator(),
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  Image.asset('assets/images/coco_logo.png', height: 60),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 14),
+
                   const Text(
-                    'Hey! Welcome',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    'Now !',
+                    style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'while you sit and stay – we’ll go\nout and play',
+                    'One tap for foods, accessories, health \ncare products & digital gadgets',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                    style: TextStyle(fontSize: 18, color: Colors.black54),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 4),
                   const Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    'Gromming & boarding',
+                    style: TextStyle(fontSize: 18, color: Colors.black54),
                   ),
+
                   const Spacer(),
                   SizedBox(
                     width: double.infinity,

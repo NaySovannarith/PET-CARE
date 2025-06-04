@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/dot_indicator.dart';
 import '../narbar.dart'; // Import your navbar file
+import 'login_screen.dart';
 
 class OnboardingScreen2 extends StatelessWidget {
   const OnboardingScreen2({super.key});
@@ -12,10 +13,7 @@ class OnboardingScreen2 extends StatelessWidget {
         children: [
           // Background
           Positioned.fill(
-            child: Image.asset(
-              'assets/puppy1.jpg',
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset('assets/puppy4.jpg', fit: BoxFit.cover),
           ),
           // Bottom content
           Align(
@@ -33,32 +31,29 @@ class OnboardingScreen2 extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
+                      DotIndicator(),
+                      DotIndicator(),
                       DotIndicator(isActive: true),
-                      DotIndicator(),
-                      DotIndicator(),
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  Image.asset('assets/images/coco_logo.png', height: 60),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
+
                   const Text(
-                    'Hey! Welcome',
+                    'We provide',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 2),
                   const Text(
-                    'while you sit and stay – we’ll go\nout and play',
+                    '24hrs location tracking & health \nupdates',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                    style: TextStyle(fontSize: 18, color: Colors.black54),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 2),
                   const Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    'On time feeding updates',
+                    style: TextStyle(fontSize: 18, color: Colors.black54),
                   ),
+                  const SizedBox(height: 4),
                   const Spacer(),
                   SizedBox(
                     width: double.infinity,
@@ -80,6 +75,37 @@ class OnboardingScreen2 extends StatelessWidget {
                       },
                       child: const Text('Next3'),
                     ),
+                  ),
+                  const SizedBox(height: 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Already have an account? ',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
