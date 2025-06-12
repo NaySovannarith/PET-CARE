@@ -7,7 +7,7 @@ class Discover extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("My Pets")),
-      body: const Center(child: Text("This is My Pets Page")),
+      body: const Center(child: Text("This is My discover Page")),
     );
   }
 }

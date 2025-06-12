@@ -4,7 +4,7 @@ import 'navbar/discover.dart';
 import 'navbar/manage.dart';
 import 'navbar/vet.dart';
 import 'navbar/shop.dart';
-
+  
 
 class CustomNavBar extends StatefulWidget {
   const CustomNavBar({super.key});

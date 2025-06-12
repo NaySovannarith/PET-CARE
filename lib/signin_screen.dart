@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'narbar.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SigninScreen extends StatelessWidget {
+  const SigninScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +14,24 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               // coco
               Image.asset('assets/coco.jpg', height: 200),
               const SizedBox(height: 30),
+              //for username
+              TextField(
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person),
+                  hintText: 'Username',
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
 
               // Email
               TextField(
@@ -32,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
               // Password
               TextField(
@@ -48,20 +62,23 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
               const SizedBox(height: 10),
-
-              // Forget Password
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Forget Password?',
-                    style: TextStyle(color: Colors.teal),
+              //for confirm password
+              TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  hintText: 'Confirm Password',
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
+
+            
 
               const SizedBox(height: 10),
 
