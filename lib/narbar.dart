@@ -4,7 +4,6 @@ import 'navbar/discover.dart';
 import 'navbar/manage.dart';
 import 'navbar/vet.dart';
 import 'navbar/shop.dart';
-  
 
 class CustomNavBar extends StatefulWidget {
   const CustomNavBar({super.key});
@@ -18,10 +17,10 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   static const List<Widget> _page = [
     HomeScreen(),
-    Discover(),
+    DiscoverPage(),
     PetsShop(),
-    PetManage(),
-    VET(),
+    MyPetsScreen(),
+    VetPage(),
   ];
 
   void _onItemTapped(int index) {

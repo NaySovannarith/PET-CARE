@@ -2,11 +2,32 @@ import 'package:flutter/material.dart';
 import 'navbar/shop.dart';
 import 'navbar/vet.dart';
 import 'navbar/manage.dart';
-//import 'navbar/discover.dart';
 import 'widgets/insert_link.dart';
+import 'auth/profile.dart';
+import 'auth/auth_service.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String username = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserInfo();
+  }
+
+  void fetchUserInfo() {
+    final user = authService.value.currentUser;
+    setState(() {
+      username = user?.displayName ?? user?.email ?? 'User';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +35,28 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF6FAFF),
       appBar: AppBar(
         backgroundColor: const Color(0xFF40B94E),
-        title: const Text('Hey User,', style: TextStyle(color: Colors.white)),
+        title: Text(
+          'Hey $username,',
+          style: const TextStyle(color: Colors.white),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              // backgroundColor: Colors.white,
-              radius: 20,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
               child: CircleAvatar(
-                radius: 18,
-                backgroundImage: AssetImage('assets/coco.jpg'),
+                radius: 20,
+                child: CircleAvatar(
+                  radius: 18,
+                  backgroundImage: AssetImage('assets/coco.jpg'),
+                ),
               ),
             ),
           ),
@@ -36,11 +69,11 @@ class HomeScreen extends StatelessWidget {
           children: [
             _buildMyPetsSection(context),
             const SizedBox(height: 16),
-            _buildLocationAndStatus(context),
-            const SizedBox(height: 16),
             _buildPetFoodSection(context),
             const SizedBox(height: 16),
             _buildVetsSection(context),
+            const SizedBox(height: 16),
+            _buildLocationAndStatus(context),
             const SizedBox(height: 80),
           ],
         ),
@@ -53,7 +86,7 @@ class HomeScreen extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const PetManage()),
+          MaterialPageRoute(builder: (context) => const MyPetsScreen()),
         );
       },
       child: _roundedCard(
@@ -86,45 +119,20 @@ class HomeScreen extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               // Navigate to a map or location tracking page
-              launchToUrl('https://www.google.com/maps/place/Institute+of+Technology+of+Cambodia/@11.5693377,104.8957306,16.9z/data=!4m6!3m5!1s0x3109517388680e15:0x63057e6682968f5!8m2!3d11.5703975!4d104.8980857!16zL20vMDZ5dmhz?entry=ttu&g_ep=EgoyMDI1MDYwMS4wIKXMDSoASAFQAw%3D%3D');
+              launchToUrl(
+                'https://www.google.com/maps/place/Institute+of+Technology+of+Cambodia/@11.5693377,104.8957306,16.9z/data=!4m6!3m5!1s0x3109517388680e15:0x63057e6682968f5!8m2!3d11.5703975!4d104.8980857!16zL20vMDZ5dmhz?entry=ttu&g_ep=EgoyMDI1MDYwMS4wIKXMDSoASAFQAw%3D%3D',
+              );
             },
             child: _roundedCard(
               child: Column(
                 children: [
                   const Text(
                     'Pet Location',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   Image.asset('assets/map.png', height: 100),
-                  const Text(
-                    'Track Pets >',
-                    style: TextStyle(color: Colors.blue),
-                  ),
                 ],
               ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: _roundedCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Pet Status',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                _statusBar('Health', 90),
-                _statusBar('Food', 75),
-                const SizedBox(height: 4),
-                _statusBar('Health', 88),
-                _statusBar('Food', 20),
-                const Text(
-                  'Check Pets >',
-                  style: TextStyle(color: Colors.blue),
-                ),
-              ],
             ),
           ),
         ),
@@ -171,7 +179,7 @@ class HomeScreen extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const VET()),
+          MaterialPageRoute(builder: (context) => const VetPage()),
         );
       },
       child: _roundedCard(
@@ -185,7 +193,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 10),
             ListTile(
               leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/vet.png'),
+                backgroundImage: AssetImage('assets/vet1.jpg'),
               ),
               title: const Text('Dr. Nambuvan'),
               subtitle: const Text(
