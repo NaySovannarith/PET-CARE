@@ -13,8 +13,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameController;
   late TextEditingController _emailController;
-  late TextEditingController _phoneController;
-  late TextEditingController _countryController;
 
   @override
   void initState() {
@@ -22,18 +20,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final user = authService.value.currentUser;
     _nameController = TextEditingController(text: user?.displayName ?? '');
     _emailController = TextEditingController(text: user?.email ?? '');
-    _phoneController = TextEditingController(
-      text: user?.phoneNumber ?? '075819048',
-    );
-    _countryController = TextEditingController(text: 'Vietnam');
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
-    _countryController.dispose();
     super.dispose();
   }
 
@@ -42,7 +34,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       try {
         await authService.value.updateProfile(
           displayName: _nameController.text,
-          phoneNumber: _phoneController.text,
         );
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -101,21 +92,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 readOnly: true,
               ),
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: _phoneController,
-                decoration: const InputDecoration(
-                  labelText: 'Phone',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.phone,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your phone number';
-                  }
-                  return null;
-                },
-              ),
+
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,

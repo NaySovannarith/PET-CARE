@@ -20,7 +20,7 @@ class _VetPageState extends State<VetPage> {
       'patients': '1006',
       'reviews': '100 reviews',
       'rating': '5.0',
-      'img': 'assets/vets/1.jpg',
+      'img': 'assets/1.jpg',
     },
     {
       'name': 'Dr. Natalie Isaza',
@@ -30,7 +30,7 @@ class _VetPageState extends State<VetPage> {
       'patients': '1205',
       'reviews': '100 reviews',
       'rating': '5.0',
-      'img': 'assets/vets/2.jpg',
+      'img': 'assets/2.jpg',
     },
     {
       'name': 'Dr. Michelle Mayers',
@@ -40,7 +40,7 @@ class _VetPageState extends State<VetPage> {
       'patients': '1340',
       'reviews': '87 reviews',
       'rating': '4.8',
-      'img': 'assets/vets/5.jpg',
+      'img': 'assets/5.jpg',
     },
     {
       'name': 'Dr. Victoria Smith',
@@ -50,7 +50,7 @@ class _VetPageState extends State<VetPage> {
       'patients': '980',
       'reviews': '67 reviews',
       'rating': '4.9',
-      'img': 'assets/vets/3.jpg',
+      'img': 'assets/3.jpg',
     },
     {
       'name': 'Dr. Heather Wilson-Robles',
@@ -60,7 +60,7 @@ class _VetPageState extends State<VetPage> {
       'patients': '1155',
       'reviews': '91 reviews',
       'rating': '4.7',
-      'img': 'assets/vets/2.jpg',
+      'img': 'assets/2.jpg',
     },
     {
       'name': 'Dr. Megan Brashear',
@@ -70,7 +70,7 @@ class _VetPageState extends State<VetPage> {
       'patients': '1230',
       'reviews': '102 reviews',
       'rating': '5.0',
-      'img': 'assets/vets/5.jpg',
+      'img': 'assets/5.jpg',
     },
   ];
 
