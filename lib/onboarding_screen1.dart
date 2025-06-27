@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care1/onboarding_screen2.dart';
 import '../widgets/dot_indicator.dart';
-// Import your navbar file
+
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});

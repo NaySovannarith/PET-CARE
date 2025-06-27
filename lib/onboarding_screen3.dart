@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/dot_indicator.dart';
-import '../narbar.dart'; // Import your navbar file
-import 'login_screen.dart';
+import 'auth/login_screen.dart';
+import 'auth/signin_screen.dart';
 
 class OnboardingScreen2 extends StatelessWidget {
   const OnboardingScreen2({super.key});
@@ -69,7 +69,7 @@ class OnboardingScreen2 extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const CustomNavBar(),
+                            builder: (context) => const SignupScreen(),
                           ),
                         );
                       },

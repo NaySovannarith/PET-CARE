@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'navbar/discover.dart';
+import 'navbar/manage.dart';
+import 'navbar/vet.dart';
+import 'navbar/shop.dart';
 
 class CustomNavBar extends StatefulWidget {
   const CustomNavBar({super.key});
@@ -13,10 +17,10 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   static const List<Widget> _page = [
     HomeScreen(),
-    Center(child: Text("Discover")),
-    Center(child: Text("Shop")),
-    Center(child: Text("Manage")),
-    Center(child: Text("Vet")),
+    DiscoverPage(),
+    ShopPage(),
+    MyPetsScreen(),
+    VetPage(),
   ];
 
   void _onItemTapped(int index) {
