@@ -46,7 +46,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   final List<Map<String, dynamic>> nearbyBoarding = [
     {
       'name': 'Paw Palace Boarding',
-      'img': 'assets/boarding/boarding1.jpg',
+      'img': 'assets/grooming/groomingarea.jpg',
       'status': 'OPEN',
       'rating': '4.9',
       'reviews': '78 reviews',
@@ -55,7 +55,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
     },
     {
       'name': 'Tail Wag Inn',
-      'img': 'assets/boarding/boarding2.jpg',
+      'img': 'assets/grooming/groomingarea.jpg',
       'status': 'CLOSED',
       'rating': '4.8',
       'reviews': '112 reviews',
@@ -67,7 +67,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   final List<Map<String, dynamic>> recommendedBoarding = [
     {
       'name': 'Fur Seasons Stay',
-      'img': 'assets/boarding/boarding3.jpg',
+      'img': 'assets/grooming/groomingarea2.jpg',
       'status': 'OPEN',
       'rating': '5.0',
       'reviews': '93 reviews',
@@ -97,9 +97,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                  child: showGrooming
-                      ? _buildGroomingList(isLargeScreen)
-                      : _buildBoardingList(isLargeScreen),
+                  child:
+                      showGrooming
+                          ? _buildGroomingList(isLargeScreen)
+                          : _buildBoardingList(isLargeScreen),
                 ),
               ),
             ],
@@ -153,7 +154,11 @@ class _DiscoverPageState extends State<DiscoverPage> {
       children: [
         _buildSection("Nearby Grooming", nearbyGrooming, isLargeScreen),
         const SizedBox(height: 20),
-        _buildSection("Recommended Grooming", recommendedGrooming, isLargeScreen),
+        _buildSection(
+          "Recommended Grooming",
+          recommendedGrooming,
+          isLargeScreen,
+        ),
       ],
     );
   }
@@ -163,12 +168,20 @@ class _DiscoverPageState extends State<DiscoverPage> {
       children: [
         _buildSection("Nearby Boarding", nearbyBoarding, isLargeScreen),
         const SizedBox(height: 20),
-        _buildSection("Recommended Boarding", recommendedBoarding, isLargeScreen),
+        _buildSection(
+          "Recommended Boarding",
+          recommendedBoarding,
+          isLargeScreen,
+        ),
       ],
     );
   }
 
-  Widget _buildSection(String title, List<Map<String, dynamic>> list, bool isLargeScreen) {
+  Widget _buildSection(
+    String title,
+    List<Map<String, dynamic>> list,
+    bool isLargeScreen,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -185,9 +198,10 @@ class _DiscoverPageState extends State<DiscoverPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title,
-              style: const TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
           const Text("See all", style: TextStyle(color: Colors.blue)),
         ],
       ),
@@ -228,9 +242,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   Text(
                     item['status'],
                     style: TextStyle(
-                      color: item['status'] == 'OPEN'
-                          ? Colors.green
-                          : Colors.red,
+                      color:
+                          item['status'] == 'OPEN' ? Colors.green : Colors.red,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -248,7 +261,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

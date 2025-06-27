@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'cat_shop_page.dart';
-import '../navbar/shop.dart';
 
-class DogShopPage extends StatelessWidget {
-  const DogShopPage({super.key});
+class AccessoryShopPage extends StatelessWidget {
+  const AccessoryShopPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +11,7 @@ class DogShopPage extends StatelessWidget {
         elevation: 4,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text("Shop", style: TextStyle(color: Colors.white)),
         centerTitle: true,
@@ -30,7 +26,7 @@ class DogShopPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -62,72 +58,77 @@ class DogShopPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
+                CategoryIcon(label: "Food", icon: Icons.fastfood),
+                CategoryIcon(label: "Vet Items", icon: Icons.medical_services),
                 CategoryIcon(
-                  label: "Food",
-                  icon: Icons.fastfood,
+                  label: "Accessories",
+                  icon: Icons.pets,
                   isActive: true,
                 ),
-                CategoryIcon(label: "Vet Items", icon: Icons.medical_services),
-                CategoryIcon(label: "Accessories", icon: Icons.pets),
                 CategoryIcon(label: "IOT Devices", icon: Icons.devices),
               ],
             ),
-
             const SizedBox(height: 16),
 
-            // Tab bar with For Dogs active
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(
-                      context,
-                    ); // Go back to the previous page (Shop)
-                  },
-                  child: const TabButton(label: "Pets Food"),
-                ),
-                const TabButton(label: "For Dogs", isActive: true),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CatShopPage(),
-                      ),
-                    );
-                  },
-                  child: const TabButton(label: "For Cat"),
-                ),
-              ],
+            const Center(
+              child: Column(
+                children: [
+                  Text(
+                    "ACCESSORIES",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    "for your pets",
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                ],
+              ),
             ),
-
             const SizedBox(height: 16),
 
             const Text(
-              "Dogs Food",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              "Popular Accessories",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
 
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
-                mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
                 childAspectRatio: 0.68,
                 children: const [
-                  ProductCard(
-                    brand: "Royal",
-                    title: "Royal Canin Mini Puppy Dog Food 2kg",
-                    price: "\$30.50",
-                    imagePath: "assets/foods/royal_puppy.png",
+                  AccessoryProductCard(
+                    brand: "Furry",
+                    title: "Dog Collar",
+                    price: "\$4.50",
+                    imagePath: "assets/accessories/dog_collar.png",
                   ),
-                  ProductCard(
-                    brand: "Luv...",
-                    title: "Luvcare Puppy Small Dog 2kg",
-                    price: "\$9.50",
-                    imagePath: "assets/foods/luvcare.png",
+                  AccessoryProductCard(
+                    brand: "Bella",
+                    title: "Warm fleece vest",
+                    price: "\$8.00",
+                    imagePath: "assets/accessories/warm_vest.png",
+                    sale: "-16%",
+                  ),
+                  AccessoryProductCard(
+                    brand: "Roudy",
+                    title: "Pet Nail Clipper & Claws Scissors",
+                    price: "\$7.50",
+                    imagePath: "assets/accessories/nail_clipper.png",
+                  ),
+                  AccessoryProductCard(
+                    brand: "Furry",
+                    title: "Flea Comb",
+                    price: "\$5.00",
+                    imagePath: "assets/accessories/flea_comb.png",
                   ),
                 ],
               ),
@@ -139,6 +140,7 @@ class DogShopPage extends StatelessWidget {
   }
 }
 
+// Reuse CategoryIcon widget from existing files
 class CategoryIcon extends StatelessWidget {
   final String label;
   final IconData icon;
@@ -181,45 +183,20 @@ class CategoryIcon extends StatelessWidget {
   }
 }
 
-class TabButton extends StatelessWidget {
-  final String label;
-  final bool isActive;
-
-  const TabButton({required this.label, this.isActive = false, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-      decoration: BoxDecoration(
-        color: isActive ? Colors.orange[100] : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isActive ? Colors.orange : Colors.grey.shade300,
-        ),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isActive ? Colors.orange : Colors.black,
-          fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-        ),
-      ),
-    );
-  }
-}
-
-class ProductCard extends StatelessWidget {
+// Product card for accessories
+class AccessoryProductCard extends StatelessWidget {
   final String brand;
   final String title;
   final String price;
   final String imagePath;
+  final String? sale;
 
-  const ProductCard({
+  const AccessoryProductCard({
     required this.brand,
     required this.title,
     required this.price,
     required this.imagePath,
+    this.sale,
     super.key,
   });
 
@@ -230,20 +207,45 @@ class ProductCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade200),
         borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.orange[100],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              brand,
-              style: TextStyle(fontSize: 12, color: Colors.orange[800]),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.orange[100],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  brand,
+                  style: TextStyle(fontSize: 12, color: Colors.orange[800]),
+                ),
+              ),
+              if (sale != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.red[100],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    sale!,
+                    style: const TextStyle(
+                      fontSize: 10,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+            ],
           ),
           const SizedBox(height: 8),
           Center(child: Image.asset(imagePath, height: 80)),
