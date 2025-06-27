@@ -18,7 +18,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
   static const List<Widget> _page = [
     HomeScreen(),
     DiscoverPage(),
-    PetsShop(),
+    ShopPage(),
     MyPetsScreen(),
     VetPage(),
   ];
