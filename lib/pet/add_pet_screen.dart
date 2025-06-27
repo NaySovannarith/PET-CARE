@@ -11,18 +11,18 @@ class AddPetScreen extends StatefulWidget {
 class _AddPetScreenState extends State<AddPetScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  String? _selectedBreed;
-  String? _selectedGender;
   final _heightController = TextEditingController();
   final _ageController = TextEditingController();
   final _weightController = TextEditingController();
   final _colorController = TextEditingController();
+
+  String? _selectedBreed;
+  String? _selectedGender;
   bool _isLoading = false;
 
   @override
   void dispose() {
     _nameController.dispose();
-    // _breedController.dispose();
     _heightController.dispose();
     _ageController.dispose();
     _weightController.dispose();
@@ -31,7 +31,14 @@ class _AddPetScreenState extends State<AddPetScreen> {
   }
 
   Future<void> _addPet() async {
-    if (_formKey.currentState!.validate() && _selectedGender != null) {
+    if (authService.value.currentUser == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You must be signed in to add a pet')),
+      );
+      return;
+    }
+
+    if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
 
       try {
@@ -51,7 +58,8 @@ class _AddPetScreenState extends State<AddPetScreen> {
           );
           Navigator.pop(context);
         }
-      } catch (e) {
+      } catch (e, stackTrace) {
+        print('❌ Failed to add pet: $e\n$stackTrace');
         if (mounted) {
           ScaffoldMessenger.of(
             context,
@@ -79,7 +87,6 @@ class _AddPetScreenState extends State<AddPetScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
                 controller: _nameController,
@@ -91,23 +98,28 @@ class _AddPetScreenState extends State<AddPetScreen> {
                     (value) => value?.isEmpty ?? true ? 'Required' : null,
               ),
               const SizedBox(height: 16),
+
               DropdownButtonFormField<String>(
                 value: _selectedBreed,
                 decoration: const InputDecoration(
-                  labelText: 'Pet',
+                  labelText: 'Breed',
                   border: OutlineInputBorder(),
                 ),
                 items:
-                    ['Dog', 'Cat', 'Hamster'].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                    ['Dog', 'Cat', 'Hamster']
+                        .map(
+                          (breed) => DropdownMenuItem(
+                            value: breed,
+                            child: Text(breed),
+                          ),
+                        )
+                        .toList(),
                 onChanged: (value) => setState(() => _selectedBreed = value),
-                validator: (value) => value == null ? 'Required' : null,
+                validator:
+                    (value) => value == null ? 'Please select a breed' : null,
               ),
               const SizedBox(height: 16),
+
               DropdownButtonFormField<String>(
                 value: _selectedGender,
                 decoration: const InputDecoration(
@@ -115,16 +127,20 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   border: OutlineInputBorder(),
                 ),
                 items:
-                    ['Male', 'Female'].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                    ['Male', 'Female']
+                        .map(
+                          (gender) => DropdownMenuItem(
+                            value: gender,
+                            child: Text(gender),
+                          ),
+                        )
+                        .toList(),
                 onChanged: (value) => setState(() => _selectedGender = value),
-                validator: (value) => value == null ? 'Required' : null,
+                validator:
+                    (value) => value == null ? 'Please select a gender' : null,
               ),
               const SizedBox(height: 16),
+
               TextFormField(
                 controller: _heightController,
                 decoration: const InputDecoration(
@@ -139,6 +155,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
                 },
               ),
               const SizedBox(height: 16),
+
               TextFormField(
                 controller: _ageController,
                 decoration: const InputDecoration(
@@ -153,6 +170,7 @@ class _AddPetScreenState extends State<AddPetScreen> {
                 },
               ),
               const SizedBox(height: 16),
+
               TextFormField(
                 controller: _weightController,
                 decoration: const InputDecoration(
@@ -166,7 +184,19 @@ class _AddPetScreenState extends State<AddPetScreen> {
                   return null;
                 },
               ),
+              const SizedBox(height: 16),
+
+              TextFormField(
+                controller: _colorController,
+                decoration: const InputDecoration(
+                  labelText: 'Color',
+                  border: OutlineInputBorder(),
+                ),
+                validator:
+                    (value) => value?.isEmpty ?? true ? 'Required' : null,
+              ),
               const SizedBox(height: 24),
+
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

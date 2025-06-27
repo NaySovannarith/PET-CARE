@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care1/pet/add_pet_screen.dart';
+import '../navbar/manage.dart';
 import '../pet/Order_screen.dart';
 import 'auth_service.dart';
 import 'edit_profile.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -22,28 +24,30 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Text(
               userName,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Text(
               userEmail,
               style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
-            const Divider(height: 40, thickness: 1),
+            const Divider(height: 5, thickness: 1),
             const Text(
               'About me',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 5),
             _buildMenuOption(
               'Edit Profile',
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const EditProfileScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => const EditProfileScreen(),
+                  ),
                 );
               },
             ),
@@ -63,7 +67,7 @@ class ProfileScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const AddPetScreen()),
+                  MaterialPageRoute(builder: (context) => const MyPetsScreen()),
                 );
               },
             ),
@@ -85,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
                 child: const Text('Log out', style: TextStyle(fontSize: 18)),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
           ],
         ),
       ),

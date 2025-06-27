@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-ValueNotifier<AuthService> authService = ValueNotifier<AuthService>(AuthService());
+ValueNotifier<AuthService> authService = ValueNotifier<AuthService>(
+  AuthService(),
+);
 
 class AuthService {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -32,23 +34,36 @@ class AuthService {
     required String username,
   }) async {
     try {
+      print('📌 [${DateTime.now()}] Start signUp');
+
       final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      
-      await userCredential.user?.updateProfile(displayName: username);
-      
-      // Create user document in Firestore
-      await firestore.collection('users').doc(userCredential.user?.uid).set({
-        'email': email,
-        'username': username,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-      
+
+      print('✅ [${DateTime.now()}] Created user');
+
+      final user = userCredential.user;
+      if (user != null) {
+        await Future.wait([
+          user.updateProfile(displayName: username),
+          firestore.collection('users').doc(user.uid).set({
+            'email': email,
+            'username': username,
+            'createdAt': FieldValue.serverTimestamp(),
+          }),
+        ]);
+
+        print('✅ [${DateTime.now()}] Finished Firestore + profile update');
+      }
+
       return userCredential;
     } on FirebaseAuthException catch (e) {
+      print('❌ FirebaseAuthException: ${e.code} at ${DateTime.now()}');
       throw _handleAuthError(e);
+    } catch (e) {
+      print('❌ Unknown error: $e at ${DateTime.now()}');
+      rethrow;
     }
   }
 
@@ -65,13 +80,15 @@ class AuthService {
     try {
       await currentUser?.updateDisplayName(displayName);
       if (phoneNumber != null) {
-        await currentUser?.updatePhoneNumber(PhoneAuthProvider.credential(
-          verificationId: 'TODO', // You'll need to implement phone auth
-          smsCode: 'TODO',
-        ));
+        await currentUser?.updatePhoneNumber(
+          PhoneAuthProvider.credential(
+            verificationId: 'TODO', // You'll need to implement phone auth
+            smsCode: 'TODO',
+          ),
+        );
       }
       await currentUser?.updatePhotoURL(photoURL);
-      
+
       // Update Firestore document
       await firestore.collection('users').doc(currentUser?.uid).update({
         if (displayName != null) 'username': displayName,
@@ -121,10 +138,10 @@ class AuthService {
         password: password,
       );
       await currentUser!.reauthenticateWithCredential(credential);
-      
+
       // Delete user document first
       await firestore.collection('users').doc(currentUser?.uid).delete();
-      
+
       // Then delete auth account
       await currentUser!.delete();
       await firebaseAuth.signOut();
@@ -169,12 +186,13 @@ class AuthService {
       final userId = currentUser?.uid;
       if (userId == null) throw Exception('User not authenticated');
 
-      final snapshot = await firestore
-          .collection('users')
-          .doc(userId)
-          .collection('pets')
-          .orderBy('createdAt', descending: true)
-          .get();
+      final snapshot =
+          await firestore
+              .collection('users')
+              .doc(userId)
+              .collection('pets')
+              .orderBy('createdAt', descending: true)
+              .get();
 
       return snapshot.docs.map((doc) => doc.data()).toList();
     } catch (e) {
