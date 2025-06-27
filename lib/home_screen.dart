@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const PetsShop()),
+          MaterialPageRoute(builder: (context) => const ShopPage()),
         );
       },
       child: _roundedCard(
