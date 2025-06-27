@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import '../pages/dog_shop_page.dart';
-import '../pages/cat_shop_page.dart';
-import '../pages/vet_shop_page.dart';
-import '../pages/accessory_shop_page.dart';
-import '../pages/iot_shop_page.dart';
+import 'accessory_shop_page.dart';
+import 'accessory_shop_page.dart';
+import 'cat_shop_page.dart';
+import 'vet_shop_page.dart';
+import '../navbar/shop.dart';
+import 'package:flutter/material.dart';
+import '../navbar/shop.dart';
+import 'accessory_shop_page.dart';
+import 'cat_shop_page.dart';
+import 'dog_shop_page.dart';
+import 'vet_shop_page.dart';
+import 'iot_shop_page.dart';
 
-class ShopPage extends StatelessWidget {
-  const ShopPage({super.key});
+class IotShopPage extends StatelessWidget {
+  const IotShopPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +23,7 @@ class ShopPage extends StatelessWidget {
         elevation: 4,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            } else {
-              print("No page to go back to!");
-            }
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text("Shop", style: TextStyle(color: Colors.white)),
         centerTitle: true,
@@ -37,7 +38,7 @@ class ShopPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,7 +66,7 @@ class ShopPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Category Icons Row (with navigation)
+            // Category Icons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -79,12 +80,11 @@ class ShopPage extends StatelessWidget {
                   child: const CategoryIcon(
                     label: "Food",
                     icon: Icons.fastfood,
-                    isActive: true,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const VetShopPage(),
@@ -98,7 +98,7 @@ class ShopPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const AccessoryShopPage(),
@@ -112,16 +112,12 @@ class ShopPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const IotShopPage(),
-                      ),
-                    );
+                    // You are already on this page
                   },
                   child: const CategoryIcon(
                     label: "IOT Devices",
                     icon: Icons.devices,
+                    isActive: true,
                   ),
                 ),
               ],
@@ -129,74 +125,67 @@ class ShopPage extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Tab bar (Food tabs only)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const TabButton(label: "Pets Food", isActive: true),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const DogShopPage(),
-                      ),
-                    );
-                  },
-                  child: const TabButton(label: "For Dogs"),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CatShopPage(),
-                      ),
-                    );
-                  },
-                  child: const TabButton(label: "For Cat"),
-                ),
-              ],
+            // Header Title
+            const Center(
+              child: Column(
+                children: [
+                  Text(
+                    "MAKE FOOD",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    "for your pets",
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                ],
+              ),
             ),
-
             const SizedBox(height: 16),
 
             const Text(
-              "Popular Food",
+              "Popular IOT Devices",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
 
+            // Product Grid
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
-                mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
                 childAspectRatio: 0.68,
                 children: const [
-                  ProductCard(
-                    brand: "Me-O",
-                    title: "Me-O Adult Cat Food Seafood 3kg",
-                    price: "\$13.50",
-                    imagePath: "assets/foods/meo.png",
+                  IotProductCard(
+                    brand: "Furry",
+                    title: "Automatic Pet Feeder",
+                    price: "\$35.00",
+                    imagePath: "assets/iot/feeder.png",
                   ),
-                  ProductCard(
-                    brand: "Royal",
-                    title: "Royal Canin Cat Food Mother & Baby Cat 2kg",
-                    price: "\$30.00",
-                    imagePath: "assets/foods/royal_baby.png",
+                  IotProductCard(
+                    brand: "Bella",
+                    title: "GPS Pet Tracker",
+                    price: "\$15.00",
+                    imagePath: "assets/iot/gps_tracker.png",
+                    sale: "-16%",
                   ),
-                  ProductCard(
-                    brand: "Royal",
-                    title: "Royal Canin Mini Puppy Dog Food 2kg",
-                    price: "\$30.50",
-                    imagePath: "assets/foods/royal_puppy.png",
+                  IotProductCard(
+                    brand: "Roudy",
+                    title: "oneisall Automatic Cat Feeder",
+                    price: "\$42.00",
+                    imagePath: "assets/iot/cat_feeder.png",
                   ),
-                  ProductCard(
-                    brand: "Luv...",
-                    title: "Luvcare Puppy Small Dog 2kg",
-                    price: "\$9.50",
-                    imagePath: "assets/foods/luvcare.png",
+                  IotProductCard(
+                    brand: "Furry",
+                    title: "Petcube Pet Camera",
+                    price: "\$40.00",
+                    imagePath: "assets/iot/petcube.png",
                   ),
                 ],
               ),
@@ -208,7 +197,7 @@ class ShopPage extends StatelessWidget {
   }
 }
 
-// CATEGORY ICON
+// Category Icon (copied for consistency)
 class CategoryIcon extends StatelessWidget {
   final String label;
   final IconData icon;
@@ -251,76 +240,75 @@ class CategoryIcon extends StatelessWidget {
   }
 }
 
-// TAB BUTTON
-class TabButton extends StatelessWidget {
-  final String label;
-  final bool isActive;
-
-  const TabButton({required this.label, this.isActive = false, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
-      decoration: BoxDecoration(
-        color: isActive ? Colors.orange[100] : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isActive ? Colors.orange : Colors.grey.shade300,
-        ),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isActive ? Colors.orange : Colors.black,
-          fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-        ),
-      ),
-    );
-  }
-}
-
-// PRODUCT CARD
-class ProductCard extends StatelessWidget {
+// Product Card for IOT Items
+class IotProductCard extends StatelessWidget {
   final String brand;
   final String title;
   final String price;
   final String imagePath;
+  final String? sale;
 
-  const ProductCard({
+  const IotProductCard({
     required this.brand,
     required this.title,
     required this.price,
     required this.imagePath,
+    this.sale,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade200),
         borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
       ),
+      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.orange[100],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              brand,
-              style: TextStyle(fontSize: 12, color: Colors.orange[800]),
-            ),
+          // Brand + Sale
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.orange[100],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  brand,
+                  style: TextStyle(fontSize: 12, color: Colors.orange[800]),
+                ),
+              ),
+              if (sale != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.red[100],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    sale!,
+                    style: const TextStyle(
+                      fontSize: 10,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+            ],
           ),
           const SizedBox(height: 8),
           Center(child: Image.asset(imagePath, height: 80)),
           const SizedBox(height: 8),
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(title, maxLines: 2, overflow: TextOverflow.ellipsis),
           const Spacer(),
           Text(price, style: const TextStyle(color: Colors.green)),
           const SizedBox(height: 4),

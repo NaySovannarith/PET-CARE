@@ -1,5 +1,12 @@
 // lib/pages/vet_shop_page.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import '../navbar/shop.dart';
+import 'accessory_shop_page.dart';
+import 'cat_shop_page.dart';
+import 'dog_shop_page.dart';
+import 'vet_shop_page.dart';
+import 'iot_shop_page.dart';
 
 class VetShopPage extends StatelessWidget {
   const VetShopPage({super.key});
@@ -62,20 +69,54 @@ class VetShopPage extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(context); // Back to food
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ShopPage()),
+                    );
                   },
                   child: const CategoryIcon(
                     label: "Food",
                     icon: Icons.fastfood,
                   ),
                 ),
-                const CategoryIcon(
-                  label: "Vet Items",
-                  icon: Icons.medical_services,
-                  isActive: true,
+                GestureDetector(
+                  onTap: () {
+                    // You are already on this page
+                  },
+                  child: const CategoryIcon(
+                    label: "Vet Items",
+                    icon: Icons.medical_services,
+                    isActive: true,
+                  ),
                 ),
-                const CategoryIcon(label: "Accessories", icon: Icons.pets),
-                const CategoryIcon(label: "IOT Devices", icon: Icons.devices),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AccessoryShopPage(),
+                      ),
+                    );
+                  },
+                  child: const CategoryIcon(
+                    label: "Accessories",
+                    icon: Icons.pets,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const IotShopPage(),
+                      ),
+                    );
+                  },
+                  child: const CategoryIcon(
+                    label: "IOT Devices",
+                    icon: Icons.devices,
+                  ),
+                ),
               ],
             ),
 
