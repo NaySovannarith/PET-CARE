@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const PetsShop()),
+          MaterialPageRoute(builder: (context) => const ShopPage()),
         );
       },
       child: _roundedCard(
@@ -191,20 +191,59 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/vet1.jpg'),
-              ),
-              title: const Text('Dr. Nambuvan'),
-              subtitle: const Text(
-                'Bachelor of veterinary science\n5.0 (150 reviews)\n2.5 km · 09:00 - 18:00',
-              ),
-              trailing: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Book Appointment'),
-              ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage('assets/vet1.jpg'),
+                      radius: 35,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Dr. Nambuvan',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Bachelor of veterinary science\n5.0 (150 reviews)\n2.5 km · 09:00 - 18:00',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          const SizedBox(height: 8),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.teal,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10,
+                                ),
+                              ),
+                              child: const Text('Book Appointment'),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Last Visit: 25/11/2022',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-            const Text('Last Visit: 25/11/2022'),
           ],
         ),
       ),

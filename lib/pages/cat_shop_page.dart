@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import '../pages/dog_shop_page.dart';
-import '../pages/cat_shop_page.dart';
-import '../pages/vet_shop_page.dart';
-import '../pages/accessory_shop_page.dart';
+import 'dog_shop_page.dart';
+import '../navbar/shop.dart';
 
-class ShopPage extends StatelessWidget {
-  const ShopPage({super.key});
+class CatShopPage extends StatelessWidget {
+  const CatShopPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +14,7 @@ class ShopPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            } else {
-              print("No page to go back to!");
-            }
+            Navigator.pop(context);
           },
         ),
         title: const Text("Shop", style: TextStyle(color: Colors.white)),
@@ -64,7 +58,24 @@ class ShopPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Category Icons Row (with navigation)
+            // Category Icons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                CategoryIcon(
+                  label: "Food",
+                  icon: Icons.fastfood,
+                  isActive: true,
+                ),
+                CategoryIcon(label: "Vet Items", icon: Icons.medical_services),
+                CategoryIcon(label: "Accessories", icon: Icons.pets),
+                CategoryIcon(label: "IOT Devices", icon: Icons.devices),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Tab bar with For Cat active
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -75,60 +86,8 @@ class ShopPage extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => const ShopPage()),
                     );
                   },
-                  child: const CategoryIcon(
-                    label: "Food",
-                    icon: Icons.fastfood,
-                    isActive: true,
-                  ),
+                  child: const TabButton(label: "Pets Food"),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const VetShopPage(),
-                      ),
-                    );
-                  },
-                  child: const CategoryIcon(
-                    label: "Vet Items",
-                    icon: Icons.medical_services,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AccessoryShopPage(),
-                      ),
-                    );
-                  },
-                  child: const CategoryIcon(
-                    label: "Accessories",
-                    icon: Icons.pets,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // You can link this to your IOT page later
-                    print("IOT Devices tapped");
-                  },
-                  child: const CategoryIcon(
-                    label: "IOT Devices",
-                    icon: Icons.devices,
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Tab bar (Food tabs only)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const TabButton(label: "Pets Food", isActive: true),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -140,25 +99,15 @@ class ShopPage extends StatelessWidget {
                   },
                   child: const TabButton(label: "For Dogs"),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CatShopPage(),
-                      ),
-                    );
-                  },
-                  child: const TabButton(label: "For Cat"),
-                ),
+                const TabButton(label: "For Cat", isActive: true),
               ],
             ),
 
             const SizedBox(height: 16),
 
             const Text(
-              "Popular Food",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              "Cats Food",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
 
@@ -181,18 +130,6 @@ class ShopPage extends StatelessWidget {
                     price: "\$30.00",
                     imagePath: "assets/foods/royal_baby.png",
                   ),
-                  ProductCard(
-                    brand: "Royal",
-                    title: "Royal Canin Mini Puppy Dog Food 2kg",
-                    price: "\$30.50",
-                    imagePath: "assets/foods/royal_puppy.png",
-                  ),
-                  ProductCard(
-                    brand: "Luv...",
-                    title: "Luvcare Puppy Small Dog 2kg",
-                    price: "\$9.50",
-                    imagePath: "assets/foods/luvcare.png",
-                  ),
                 ],
               ),
             ),
@@ -203,7 +140,8 @@ class ShopPage extends StatelessWidget {
   }
 }
 
-// CATEGORY ICON
+// --- Reuse Components Below ---
+
 class CategoryIcon extends StatelessWidget {
   final String label;
   final IconData icon;
@@ -246,7 +184,6 @@ class CategoryIcon extends StatelessWidget {
   }
 }
 
-// TAB BUTTON
 class TabButton extends StatelessWidget {
   final String label;
   final bool isActive;
@@ -275,7 +212,6 @@ class TabButton extends StatelessWidget {
   }
 }
 
-// PRODUCT CARD
 class ProductCard extends StatelessWidget {
   final String brand;
   final String title;
