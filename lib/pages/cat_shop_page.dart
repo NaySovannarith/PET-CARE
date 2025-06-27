@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'cat_shop_page.dart';
+import 'dog_shop_page.dart';
 import '../navbar/shop.dart';
 
-class DogShopPage extends StatelessWidget {
-  const DogShopPage({super.key});
+class CatShopPage extends StatelessWidget {
+  const CatShopPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class DogShopPage extends StatelessWidget {
               ),
               child: const TextField(
                 decoration: InputDecoration(
-                  hintText: "Search keywords..",
+                  hintText: "Search ..",
                   prefixIcon: Icon(Icons.search),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 14),
@@ -75,37 +75,38 @@ class DogShopPage extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Tab bar with For Dogs active
+            // Tab bar with For Cat active
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pop(
+                    Navigator.pushReplacement(
                       context,
-                    ); // Go back to the previous page (Shop)
+                      MaterialPageRoute(builder: (context) => const ShopPage()),
+                    );
                   },
                   child: const TabButton(label: "Pets Food"),
                 ),
-                const TabButton(label: "For Dogs", isActive: true),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const CatShopPage(),
+                        builder: (context) => const DogShopPage(),
                       ),
                     );
                   },
-                  child: const TabButton(label: "For Cat"),
+                  child: const TabButton(label: "For Dogs"),
                 ),
+                const TabButton(label: "For Cat", isActive: true),
               ],
             ),
 
             const SizedBox(height: 16),
 
             const Text(
-              "Dogs Food",
+              "Cats Food",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -118,16 +119,16 @@ class DogShopPage extends StatelessWidget {
                 childAspectRatio: 0.68,
                 children: const [
                   ProductCard(
-                    brand: "Royal",
-                    title: "Royal Canin Mini Puppy Dog Food 2kg",
-                    price: "\$30.50",
-                    imagePath: "assets/foods/royal_puppy.png",
+                    brand: "Me-O",
+                    title: "Me-O Adult Cat Food Seafood 3kg",
+                    price: "\$13.50",
+                    imagePath: "assets/foods/meo.png",
                   ),
                   ProductCard(
-                    brand: "Luv...",
-                    title: "Luvcare Puppy Small Dog 2kg",
-                    price: "\$9.50",
-                    imagePath: "assets/foods/luvcare.png",
+                    brand: "Royal",
+                    title: "Royal Canin Cat Food Mother & Baby Cat 2kg",
+                    price: "\$30.00",
+                    imagePath: "assets/foods/royal_baby.png",
                   ),
                 ],
               ),
@@ -138,6 +139,8 @@ class DogShopPage extends StatelessWidget {
     );
   }
 }
+
+// --- Reuse Components Below ---
 
 class CategoryIcon extends StatelessWidget {
   final String label;
